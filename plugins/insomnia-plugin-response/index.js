@@ -124,6 +124,8 @@ module.exports.templateTags = [
       } else if (resendBehavior === 'when-expired') {
         if (!response) {
           shouldResend = true;
+        } else if (response.statusCode === 401) {
+          shouldResend = true;
         } else {
           const ageSeconds = (Date.now() - response.created) / 1000;
           shouldResend = ageSeconds > maxAgeSeconds;
